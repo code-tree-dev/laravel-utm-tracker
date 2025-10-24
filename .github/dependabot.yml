@@ -5,7 +5,3 @@ updates:
     schedule:
       interval: "daily"
     open-pull-requests-limit: 10
-    automerged_updates:
-      # Opcional: auto-merge patch/minor updates after tests pass
-      # cuidado com merges automáticos; só ativa se confiares no CI
-      enable: true
