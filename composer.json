@@ -1,0 +1,54 @@
+{
+    "name": "code-tree-dev/laravel-utm-tracker",
+    "description": "A lightweight Laravel package that adds a middleware to automatically capture and store UTM parameters (like utm_source, utm_medium, utm_campaign) from incoming requests. Makes it easy to track traffic sources across sessions for analytics, marketing attribution, or lead tracking.",
+    "keywords": [
+        "code-tree-dev",
+        "laravel-utm-tracker"
+    ],
+    "homepage": "https://github.com/code-tree-dev/laravel-utm-tracker",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Code-Tree.dev",
+            "email": "codetreedev@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/support": "^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "CodeTreeDev\\LaravelUtmTracker\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CodeTreeDev\\LaravelUtmTracker\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "CodeTreeDev\\LaravelUtmTracker\\LaravelUtmTrackerServiceProvider"
+            ],
+            "aliases": {
+                "LaravelUtmTracker": "CodeTreeDev\\LaravelUtmTracker\\LaravelUtmTrackerFacade"
+            }
+        }
+    }
+}
