@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace CodeTreeDev\LaravelUtmTracker;
 
@@ -14,7 +15,7 @@ class LaravelUtmTrackerFacade extends Facade
      *
      * @return string
      */
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return 'laravel-utm-tracker';
     }

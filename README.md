@@ -1,42 +1,97 @@
-# Very short description of the package
+# Laravel UTM Tracker
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/code-tree-dev/laravel-utm-tracker.svg?style=flat-square)](https://packagist.org/packages/code-tree-dev/laravel-utm-tracker)
 [![Total Downloads](https://img.shields.io/packagist/dt/code-tree-dev/laravel-utm-tracker.svg?style=flat-square)](https://packagist.org/packages/code-tree-dev/laravel-utm-tracker)
 ![GitHub Actions](https://github.com/code-tree-dev/laravel-utm-tracker/actions/workflows/main.yml/badge.svg)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+Laravel UTM Tracker is a package for Laravel that automatically or manually tracks UTM parameters from your visitors and stores them in your database. It is ideal for marketing attribution, analytics, and campaign tracking. The package is easy to configure, extend, and integrates seamlessly with Laravel middleware and facades.
+
+## Features
+
+-   Automatic UTM tracking via middleware
+-   Manual UTM tracking via Facade
+-   Stores UTM data in the database, session, or cookie
+-   Easily extendable for custom UTM parameters
+-   Ready for analytics and marketing attribution
 
 ## Installation
 
-You can install the package via composer:
+Install the package via Composer:
 
 ```bash
 composer require code-tree-dev/laravel-utm-tracker
 ```
 
+Publish the config and migration files (optional):
+
+```bash
+php artisan vendor:publish --provider="CodeTreeDev\LaravelUtmTracker\LaravelUtmTrackerServiceProvider"
+```
+
+Run the migrations if using database storage:
+
+```bash
+php artisan migrate
+```
+
+## Configuration
+
+You can configure the package in `config/laravel-utm-tracker.php`:
+
+-   `storage`: Where to store UTM data (`session`, `cookie`, or `database`)
+-   `parameters`: Default UTM parameters to track
+-   `custom_parameters`: Add your own custom UTM parameters
+-   `cookie_lifetime`: Lifetime for cookies (if using cookie storage)
+-   `auto_track`: Enable/disable automatic tracking via middleware
+-   `table`: Table name for database storage
+
 ## Usage
 
+### Automatic Tracking (Middleware)
+
+By default, the package's middleware is registered and will automatically capture UTM parameters from incoming requests:
+
 ```php
-// Usage description here
+// No action needed if auto_track is enabled in config.
+```
+
+### Manual Tracking (Facade)
+
+You can manually create a UTM visit record using the Facade:
+
+```php
+use LaravelUtmTracker;
+
+LaravelUtmTracker::track([
+    'utm_source' => 'newsletter',
+    'utm_medium' => 'email',
+    'utm_campaign' => 'spring_sale',
+    // ...other fields...
+]);
 ```
 
 ### Testing
+
+Run the test suite with:
 
 ```bash
 composer test
 ```
 
-### Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
-
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Contributions are welcome! Please read the [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md) files for details.
 
-### Security
+-   Open issues for bugs or feature requests
+-   Submit pull requests for improvements
+
+## Security
 
 If you discover any security related issues, please email codetreedev@gmail.com instead of using the issue tracker.
+
+## Changelog
+
+See [CHANGELOG](CHANGELOG.md) for recent changes.
 
 ## Credits
 
@@ -45,7 +100,7 @@ If you discover any security related issues, please email codetreedev@gmail.com 
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). See [License File](LICENSE.md) for details.
 
 ## Laravel Package Boilerplate
 

@@ -1,7 +1,10 @@
 <?php
+declare(strict_types=1);
 
 namespace CodeTreeDev\LaravelUtmTracker;
 
+use CodeTreeDev\LaravelUtmTracker\Middleware\CaptureUtmParameters;
+use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\ServiceProvider;
 
 class LaravelUtmTrackerServiceProvider extends ServiceProvider
@@ -11,37 +14,18 @@ class LaravelUtmTrackerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        /*
-         * Optional methods to load your package assets
-         */
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'laravel-utm-tracker');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-utm-tracker');
-        // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        // $this->loadRoutesFrom(__DIR__.'/routes.php');
+        $kernel = $this->app->make(Kernel::class);
+        $kernel->pushMiddleware(CaptureUtmParameters::class);
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/config.php' => config_path('laravel-utm-tracker.php'),
             ], 'config');
-
-            // Publishing the views.
-            /*$this->publishes([
-                __DIR__.'/../resources/views' => resource_path('views/vendor/laravel-utm-tracker'),
-            ], 'views');*/
-
-            // Publishing assets.
-            /*$this->publishes([
-                __DIR__.'/../resources/assets' => public_path('vendor/laravel-utm-tracker'),
-            ], 'assets');*/
-
-            // Publishing the translation files.
-            /*$this->publishes([
-                __DIR__.'/../resources/lang' => resource_path('lang/vendor/laravel-utm-tracker'),
-            ], 'lang');*/
-
-            // Registering package commands.
-            // $this->commands([]);
         }
+
+        $this->publishes([
+            __DIR__ . '/../../database/migrations/' => database_path('migrations'),
+        ], 'utm-tracker-migrations');
     }
 
     /**
